@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Canvas</title>
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="c1"></canvas>
+
+  <script>
+    CanvasRenderingContext2D.prototype.roundRect = function ({
+      x,
+      y,
+      width,
+      height,
+      radius,
+      fill,
+      stroke,
+      fillStyle,
+      strokeStyle,
+      lineWidth = 1,
+    }) {
+      this.beginPath()
+      this.moveTo(x + radius, y)
+      this.lineTo(x + width - radius, y)
+      this.quadraticCurveTo(x + width, y, x + width, y + radius)
+      this.lineTo(x + width, y + height - radius)
+      this.quadraticCurveTo(x + width, y + height, x + width - radius, y + height)
+      this.lineTo(x + radius, y + height)
+      this.quadraticCurveTo(x, y + height, x, y + height - radius)
+      this.lineTo(x, y + radius)
+      this.quadraticCurveTo(x, y, x + radius, y)
+      this.closePath()
+      this.lineWidth = lineWidth
+      if (fill || fillStyle != undefined) {
+        if (fillStyle != undefined) { this.fillStyle = fillStyle }
+        this.fill()
+      }
+      if (stroke || strokeStyle != undefined) {
+        if (strokeStyle != undefined) { this.strokeStyle = strokeStyle }
+        this.stroke()
+      }
+
+      return this
+    }
+
+    const oC1 = document.getElementById('c1')
+    const ctx = oC1.getContext('2d')
+
+    oC1.width = document.body.offsetWidth
+    oC1.height = document.body.offsetHeight
+
+    //# 圆角矩形
+    ctx.roundRect({
+      x: 40,
+      y: 40,
+      width: 100,
+      height: 20,
+      radius: 4,
+      fillStyle: 'green',
+      strokeStyle: '#ff6f6c',
+      lineWidth: 10
+    })
+
+
+    //# 点线
+    ctx.beginPath()
+    ctx.setLineDash([9, 4, 19, 4])
+    ctx.moveTo(40, 90)
+    ctx.lineTo(190, 90)
+    ctx.lineWidth = 4
+    ctx.strokeStyle = '#ccc'
+    ctx.stroke()
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Canvas</title>
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="c1"></canvas>
+
+  <script>
+    const oC1 = document.getElementById('c1')
+    const ctx = oC1.getContext('2d')
+
+    oC1.width = document.body.offsetWidth
+    oC1.height = document.body.offsetHeight
+
+    ctx.beginPath()
+    ctx.moveTo(50, 20)
+    ctx.quadraticCurveTo(230, 30, 50, 100)
+    ctx.strokeStyle = '#fa6470'
+    ctx.stroke()
+
+    ctx.fillStyle = '#fa6470'
+    ctx.fillRect(50, 20, 10, 10)
+    ctx.fillRect(50, 100, 10, 10)
+
+    ctx.fillStyle = 'blue'
+    ctx.fillRect(230, 30, 10, 10)
+
+  </script>
+</body>
+
+</html>
